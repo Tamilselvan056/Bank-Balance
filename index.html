@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="scripts.js"></script>
+    <title>Banking Sector</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #3a6392;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        .container {
+            background-color: rgb(84, 177, 72);
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        #transactions {
+            display: none;
+        }
+        
+        #transactions.show {
+            display: block;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        li {
+            background-color: #e2e2e2;
+            margin-bottom: 5px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <div id="transactions">
+            <h2>Last 5 Transactions</h2>
+            <ul id="transactionList"></ul>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+        
+           
+            const userData = {
+                A: { password: 'A123', balance: 444 },
+                B: { password: 'B123', balance: 555 },
+                C: { password: 'C123', balance: 666 },
+                D: { password: 'D123', balance: 777 },
+                E: { password: 'E123', balance: 888 }
+            };
+        
+            // transactions data 
+            const transactionsData = {
+                A: [
+                    { date: '2024-05-21', amount: '444' },
+                    { date: '2024-05-20', amount: '150' },
+                    { date: '2024-05-19', amount: '175' },
+                    { date: '2024-05-18', amount: '120' },
+                    { date: '2024-05-17', amount: '200' }
+                ],
+                B: [
+                    { date: '2024-05-21', amount: '555' },
+                    { date: '2024-05-20', amount: '170' },
+                    { date: '2024-05-19', amount: '160' },
+                    { date: '2024-05-18', amount: '130' },
+                    { date: '2024-05-17', amount: '250' }
+                ],
+                C: [
+                    { date: '2024-05-21', amount: '666' },
+                    { date: '2024-05-20', amount: '100' },
+                    { date: '2024-05-19', amount: '180' },
+                    { date: '2024-05-18', amount: '140' },
+                    { date: '2024-05-17', amount: '150' }
+                ],
+                D: [
+                    { date: '2024-05-21', amount: '777' },
+                    { date: '2024-05-20', amount: '200' },
+                    { date: '2024-05-19', amount: '100' },
+                    { date: '2024-05-18', amount: '150' },
+                    { date: '2024-05-17', amount: '350' }
+                ],
+                E: [
+                    { date: '2024-05-21', amount: '888' },
+                    { date: '2024-05-20', amount: '300' },
+                    { date: '2024-05-19', amount: '150' },
+                    { date: '2024-05-18', amount: '170' },
+                    { date: '2024-05-17', amount: '500' }
+                ]
+            };
+
+            // Check if username and password are correct
+            if (userData[username] && userData[username].password === password) {
+                const transactionList = document.getElementById('transactionList');
+                transactionList.innerHTML = '';
+                transactionsData[username].forEach(transaction => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${transaction.date}: ${transaction.amount}`;
+                    transactionList.appendChild(listItem);
+                });
+                document.getElementById('transactions').classList.add('show');
+            } else {
+                alert('Invalid username or password.');
+            }
+        });
+    </script>
+</body>
+</html>
